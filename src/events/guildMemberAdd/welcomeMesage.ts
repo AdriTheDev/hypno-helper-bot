@@ -11,14 +11,16 @@ export default async function (member: GuildMember, client: Client<true>, handle
   const channel = member.guild.channels.cache.get(welcomeData.channelId) as GuildTextBasedChannel;
   if (!channel) return;
 
+  const guild = member.guild;
+
   Font.loadDefault();
   await Font.fromFile('src/fonts/Rubik-Bold.ttf');
   const card = new GreetingsCard()
     .setAvatar(member.user.displayAvatarURL())
     .setDisplayName(member.displayName)
     .setType('welcome')
-    .setMessage(welcomeData.message.replace('{user}', member.user.username));
+    .setMessage(`Thanks for joining! You are member #${guild.memberCount}!`);
 
   const attachment = new AttachmentBuilder(await card.build({ format: 'png' }), { name: 'welcome.png' });
-  channel.send({ content: `${member}`, files: [attachment] });
+  channel.send({ content: welcomeData.message.replace('{user}', member), files: [attachment] });
 }
