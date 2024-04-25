@@ -4,7 +4,8 @@
   "description": "Hypno Helper Discord bot",
   "main": "src/index.mjs",
   "scripts": {
-    "dev": "commandkit dev"
+    "dev": "commandkit dev",
+    "start": "npx commandkit build && npx commandkit start"
   },
   "repository": {
     "type": "git",
