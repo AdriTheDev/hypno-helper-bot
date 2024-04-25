@@ -22,5 +22,5 @@ export default async function (member: GuildMember, client: Client<true>, handle
     .setMessage(`Thanks for joining! You are member #${guild.memberCount}!`);
 
   const attachment = new AttachmentBuilder(await card.build({ format: 'png' }), { name: 'welcome.png' });
-  channel.send({ content: welcomeData.message.replace('{user}', member), files: [attachment] });
+  channel.send({ content: welcomeData.message.replace('{user}', member).replace('{n}', '\n'), files: [attachment] });
 }

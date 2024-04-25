@@ -22,7 +22,7 @@ export const data: CommandData = {
         },
         {
           name: 'message',
-          description: 'set the welcome message (use {user} to mention the user)',
+          description: 'set the welcome message (use {user} for the user mention and {n} for a new line)',
           type: ApplicationCommandOptionType.String,
           required: true,
         },
