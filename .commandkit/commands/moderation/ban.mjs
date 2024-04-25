@@ -1,0 +1,59 @@
+import "../../chunk-LJIZ45IO.mjs";
+import {
+  __name
+} from "../../chunk-G5GHKT7C.mjs";
+
+// src/commands/moderation/ban.ts
+import { ApplicationCommandOptionType, EmbedBuilder } from "discord.js";
+var data = {
+  name: "ban",
+  description: "bans a member from the server!",
+  dm_permission: false,
+  options: [
+    {
+      name: "member",
+      description: "The member to ban",
+      type: ApplicationCommandOptionType.User,
+      required: true
+    },
+    {
+      name: "reason",
+      description: "The reason for the ban",
+      type: ApplicationCommandOptionType.String,
+      required: true
+    }
+  ]
+};
+async function run({ interaction, client, handler }) {
+  let msg = await interaction.deferReply({ fetchReply: true });
+  const target = interaction.options.getUser("member") || interaction.user;
+  const reason = interaction.options.getString("reason") || "No reason provided";
+  const member = interaction.guild?.members.cache.get(target.id);
+  const intMember = interaction.guild?.members.cache.get(interaction.user.id);
+  if (target.id === interaction.user.id) {
+    return interaction.editReply("You cannot ban yourself!");
+  } else if (target.id === client.user?.id) {
+    return interaction.editReply("You cannot ban me!");
+  } else if (!member) {
+    return interaction.editReply("That user is not in the server!");
+  } else if (!member.bannable) {
+    return interaction.editReply("I cannot ban that user!");
+  } else if (intMember.roles.highest.position <= member.roles.highest.position) {
+    return interaction.editReply("You cannot ban that user!");
+  }
+  const userEmbed = new EmbedBuilder().setTitle(`You have been banned from ${interaction.guild?.name}!`).setDescription(`Reason: ${reason}`).setColor(16738657).setTimestamp();
+  const bannedEmbed = new EmbedBuilder().setDescription(`\`\u2705\` Successfully banned ${target.username}! || ${reason}`).setColor(7855479).setTimestamp();
+  await member.send({ embeds: [userEmbed] }).catch(() => {
+    bannedEmbed.setFooter({ text: "Failed to DM user!" });
+  });
+  await member.ban({ reason }).catch(() => {
+    return interaction.editReply("An error occured while banning that user!");
+  });
+  interaction.editReply({ embeds: [bannedEmbed] });
+}
+__name(run, "run");
+export {
+  data,
+  run
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vLi4vc3JjL2NvbW1hbmRzL21vZGVyYXRpb24vYmFuLnRzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyJpbXBvcnQgdHlwZSB7IENvbW1hbmREYXRhLCBTbGFzaENvbW1hbmRQcm9wcywgQ29tbWFuZE9wdGlvbnMgfSBmcm9tICdjb21tYW5ka2l0JztcbmltcG9ydCB7IEFwcGxpY2F0aW9uQ29tbWFuZE9wdGlvblR5cGUsIEVtYmVkQnVpbGRlciwgR3VpbGRNZW1iZXIgfSBmcm9tICdkaXNjb3JkLmpzJztcblxuZXhwb3J0IGNvbnN0IGRhdGE6IENvbW1hbmREYXRhID0ge1xuICBuYW1lOiAnYmFuJyxcbiAgZGVzY3JpcHRpb246ICdiYW5zIGEgbWVtYmVyIGZyb20gdGhlIHNlcnZlciEnLFxuICBkbV9wZXJtaXNzaW9uOiBmYWxzZSxcbiAgb3B0aW9uczogW1xuICAgIHtcbiAgICAgIG5hbWU6ICdtZW1iZXInLFxuICAgICAgZGVzY3JpcHRpb246ICdUaGUgbWVtYmVyIHRvIGJhbicsXG4gICAgICB0eXBlOiBBcHBsaWNhdGlvbkNvbW1hbmRPcHRpb25UeXBlLlVzZXIsXG4gICAgICByZXF1aXJlZDogdHJ1ZSxcbiAgICB9LFxuICAgIHtcbiAgICAgIG5hbWU6ICdyZWFzb24nLFxuICAgICAgZGVzY3JpcHRpb246ICdUaGUgcmVhc29uIGZvciB0aGUgYmFuJyxcbiAgICAgIHR5cGU6IEFwcGxpY2F0aW9uQ29tbWFuZE9wdGlvblR5cGUuU3RyaW5nLFxuICAgICAgcmVxdWlyZWQ6IHRydWUsXG4gICAgfSxcbiAgXSxcbn07XG5cbmV4cG9ydCBhc3luYyBmdW5jdGlvbiBydW4oeyBpbnRlcmFjdGlvbiwgY2xpZW50LCBoYW5kbGVyIH06IFNsYXNoQ29tbWFuZFByb3BzKSB7XG4gIGxldCBtc2cgPSBhd2FpdCBpbnRlcmFjdGlvbi5kZWZlclJlcGx5KHsgZmV0Y2hSZXBseTogdHJ1ZSB9KTtcblxuICBjb25zdCB0YXJnZXQgPSBpbnRlcmFjdGlvbi5vcHRpb25zLmdldFVzZXIoJ21lbWJlcicpIHx8IGludGVyYWN0aW9uLnVzZXI7XG4gIGNvbnN0IHJlYXNvbiA9IGludGVyYWN0aW9uLm9wdGlvbnMuZ2V0U3RyaW5nKCdyZWFzb24nKSB8fCAnTm8gcmVhc29uIHByb3ZpZGVkJztcbiAgY29uc3QgbWVtYmVyID0gaW50ZXJhY3Rpb24uZ3VpbGQ/Lm1lbWJlcnMuY2FjaGUuZ2V0KHRhcmdldC5pZCk7XG4gIGNvbnN0IGludE1lbWJlciA9IGludGVyYWN0aW9uLmd1aWxkPy5tZW1iZXJzLmNhY2hlLmdldChpbnRlcmFjdGlvbi51c2VyLmlkKSBhcyBHdWlsZE1lbWJlcjtcblxuICBpZiAodGFyZ2V0LmlkID09PSBpbnRlcmFjdGlvbi51c2VyLmlkKSB7XG4gICAgcmV0dXJuIGludGVyYWN0aW9uLmVkaXRSZXBseSgnWW91IGNhbm5vdCBiYW4geW91cnNlbGYhJyk7XG4gIH0gZWxzZSBpZiAodGFyZ2V0LmlkID09PSBjbGllbnQudXNlcj8uaWQpIHtcbiAgICByZXR1cm4gaW50ZXJhY3Rpb24uZWRpdFJlcGx5KCdZb3UgY2Fubm90IGJhbiBtZSEnKTtcbiAgfSBlbHNlIGlmICghbWVtYmVyKSB7XG4gICAgcmV0dXJuIGludGVyYWN0aW9uLmVkaXRSZXBseSgnVGhhdCB1c2VyIGlzIG5vdCBpbiB0aGUgc2VydmVyIScpO1xuICB9IGVsc2UgaWYgKCFtZW1iZXIuYmFubmFibGUpIHtcbiAgICByZXR1cm4gaW50ZXJhY3Rpb24uZWRpdFJlcGx5KCdJIGNhbm5vdCBiYW4gdGhhdCB1c2VyIScpO1xuICB9IGVsc2UgaWYgKGludE1lbWJlci5yb2xlcy5oaWdoZXN0LnBvc2l0aW9uIDw9IG1lbWJlci5yb2xlcy5oaWdoZXN0LnBvc2l0aW9uKSB7XG4gICAgcmV0dXJuIGludGVyYWN0aW9uLmVkaXRSZXBseSgnWW91IGNhbm5vdCBiYW4gdGhhdCB1c2VyIScpO1xuICB9XG5cbiAgY29uc3QgdXNlckVtYmVkID0gbmV3IEVtYmVkQnVpbGRlcigpXG4gICAgLnNldFRpdGxlKGBZb3UgaGF2ZSBiZWVuIGJhbm5lZCBmcm9tICR7aW50ZXJhY3Rpb24uZ3VpbGQ/Lm5hbWV9IWApXG4gICAgLnNldERlc2NyaXB0aW9uKGBSZWFzb246ICR7cmVhc29ufWApXG4gICAgLnNldENvbG9yKDB4ZmY2OTYxKVxuICAgIC5zZXRUaW1lc3RhbXAoKTtcblxuICBjb25zdCBiYW5uZWRFbWJlZCA9IG5ldyBFbWJlZEJ1aWxkZXIoKS5zZXREZXNjcmlwdGlvbihgXFxgXHUyNzA1XFxgIFN1Y2Nlc3NmdWxseSBiYW5uZWQgJHt0YXJnZXQudXNlcm5hbWV9ISB8fCAke3JlYXNvbn1gKS5zZXRDb2xvcigweDc3ZGQ3Nykuc2V0VGltZXN0YW1wKCk7XG5cbiAgYXdhaXQgbWVtYmVyLnNlbmQoeyBlbWJlZHM6IFt1c2VyRW1iZWRdIH0pLmNhdGNoKCgpID0+IHtcbiAgICBiYW5uZWRFbWJlZC5zZXRGb290ZXIoeyB0ZXh0OiAnRmFpbGVkIHRvIERNIHVzZXIhJyB9KTtcbiAgfSk7XG5cbiAgYXdhaXQgbWVtYmVyLmJhbih7IHJlYXNvbjogcmVhc29uIH0pLmNhdGNoKCgpID0+IHtcbiAgICByZXR1cm4gaW50ZXJhY3Rpb24uZWRpdFJlcGx5KCdBbiBlcnJvciBvY2N1cmVkIHdoaWxlIGJhbm5pbmcgdGhhdCB1c2VyIScpO1xuICB9KTtcblxuICBpbnRlcmFjdGlvbi5lZGl0UmVwbHkoeyBlbWJlZHM6IFtiYW5uZWRFbWJlZF0gfSk7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7QUFDQSxTQUFTLDhCQUE4QixvQkFBaUM7QUFFakUsSUFBTSxPQUFvQjtBQUFBLEVBQy9CLE1BQU07QUFBQSxFQUNOLGFBQWE7QUFBQSxFQUNiLGVBQWU7QUFBQSxFQUNmLFNBQVM7QUFBQSxJQUNQO0FBQUEsTUFDRSxNQUFNO0FBQUEsTUFDTixhQUFhO0FBQUEsTUFDYixNQUFNLDZCQUE2QjtBQUFBLE1BQ25DLFVBQVU7QUFBQSxJQUNaO0FBQUEsSUFDQTtBQUFBLE1BQ0UsTUFBTTtBQUFBLE1BQ04sYUFBYTtBQUFBLE1BQ2IsTUFBTSw2QkFBNkI7QUFBQSxNQUNuQyxVQUFVO0FBQUEsSUFDWjtBQUFBLEVBQ0Y7QUFDRjtBQUVBLGVBQXNCLElBQUksRUFBRSxhQUFhLFFBQVEsUUFBUSxHQUFzQjtBQUM3RSxNQUFJLE1BQU0sTUFBTSxZQUFZLFdBQVcsRUFBRSxZQUFZLEtBQUssQ0FBQztBQUUzRCxRQUFNLFNBQVMsWUFBWSxRQUFRLFFBQVEsUUFBUSxLQUFLLFlBQVk7QUFDcEUsUUFBTSxTQUFTLFlBQVksUUFBUSxVQUFVLFFBQVEsS0FBSztBQUMxRCxRQUFNLFNBQVMsWUFBWSxPQUFPLFFBQVEsTUFBTSxJQUFJLE9BQU8sRUFBRTtBQUM3RCxRQUFNLFlBQVksWUFBWSxPQUFPLFFBQVEsTUFBTSxJQUFJLFlBQVksS0FBSyxFQUFFO0FBRTFFLE1BQUksT0FBTyxPQUFPLFlBQVksS0FBSyxJQUFJO0FBQ3JDLFdBQU8sWUFBWSxVQUFVLDBCQUEwQjtBQUFBLEVBQ3pELFdBQVcsT0FBTyxPQUFPLE9BQU8sTUFBTSxJQUFJO0FBQ3hDLFdBQU8sWUFBWSxVQUFVLG9CQUFvQjtBQUFBLEVBQ25ELFdBQVcsQ0FBQyxRQUFRO0FBQ2xCLFdBQU8sWUFBWSxVQUFVLGlDQUFpQztBQUFBLEVBQ2hFLFdBQVcsQ0FBQyxPQUFPLFVBQVU7QUFDM0IsV0FBTyxZQUFZLFVBQVUseUJBQXlCO0FBQUEsRUFDeEQsV0FBVyxVQUFVLE1BQU0sUUFBUSxZQUFZLE9BQU8sTUFBTSxRQUFRLFVBQVU7QUFDNUUsV0FBTyxZQUFZLFVBQVUsMkJBQTJCO0FBQUEsRUFDMUQ7QUFFQSxRQUFNLFlBQVksSUFBSSxhQUFhLEVBQ2hDLFNBQVMsNkJBQTZCLFlBQVksT0FBTyxJQUFJLEdBQUcsRUFDaEUsZUFBZSxXQUFXLE1BQU0sRUFBRSxFQUNsQyxTQUFTLFFBQVEsRUFDakIsYUFBYTtBQUVoQixRQUFNLGNBQWMsSUFBSSxhQUFhLEVBQUUsZUFBZSxrQ0FBNkIsT0FBTyxRQUFRLFFBQVEsTUFBTSxFQUFFLEVBQUUsU0FBUyxPQUFRLEVBQUUsYUFBYTtBQUVwSixRQUFNLE9BQU8sS0FBSyxFQUFFLFFBQVEsQ0FBQyxTQUFTLEVBQUUsQ0FBQyxFQUFFLE1BQU0sTUFBTTtBQUNyRCxnQkFBWSxVQUFVLEVBQUUsTUFBTSxxQkFBcUIsQ0FBQztBQUFBLEVBQ3RELENBQUM7QUFFRCxRQUFNLE9BQU8sSUFBSSxFQUFFLE9BQWUsQ0FBQyxFQUFFLE1BQU0sTUFBTTtBQUMvQyxXQUFPLFlBQVksVUFBVSwyQ0FBMkM7QUFBQSxFQUMxRSxDQUFDO0FBRUQsY0FBWSxVQUFVLEVBQUUsUUFBUSxDQUFDLFdBQVcsRUFBRSxDQUFDO0FBQ2pEO0FBckNzQjsiLAogICJuYW1lcyI6IFtdCn0K

@@ -1,0 +1,32 @@
+import {
+  greetingCard_default
+} from "../../chunk-XP2F66RO.mjs";
+import {
+  welcomeSchema_default
+} from "../../chunk-TAXVAU2M.mjs";
+import "../../chunk-LJIZ45IO.mjs";
+import {
+  __name
+} from "../../chunk-G5GHKT7C.mjs";
+
+// src/events/guildMemberAdd/welcomeMesage.ts
+import { AttachmentBuilder } from "discord.js";
+import { Font } from "canvacord";
+async function welcomeMesage_default(member, client, handler) {
+  const welcomeData = await welcomeSchema_default.findOne({ guildId: member.guild.id });
+  if (!welcomeData)
+    return;
+  const channel = member.guild.channels.cache.get(welcomeData.channelId);
+  if (!channel)
+    return;
+  Font.loadDefault();
+  await Font.fromFile("src/fonts/Rubik-Bold.ttf");
+  const card = new greetingCard_default().setAvatar(member.user.displayAvatarURL()).setDisplayName(member.displayName).setType("welcome").setMessage(welcomeData.message.replace("{user}", member.user.username));
+  const attachment = new AttachmentBuilder(await card.build({ format: "png" }), { name: "welcome.png" });
+  channel.send({ content: `${member}`, files: [attachment] });
+}
+__name(welcomeMesage_default, "default");
+export {
+  welcomeMesage_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vLi4vc3JjL2V2ZW50cy9ndWlsZE1lbWJlckFkZC93ZWxjb21lTWVzYWdlLnRzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyJpbXBvcnQgeyBBdHRhY2htZW50QnVpbGRlciwgdHlwZSBDbGllbnQsIHR5cGUgR3VpbGRNZW1iZXIsIHR5cGUgR3VpbGRUZXh0QmFzZWRDaGFubmVsIH0gZnJvbSAnZGlzY29yZC5qcyc7XG5pbXBvcnQgd2VsY29tZVNjaGVtYSBmcm9tICcuLi8uLi9zY2hlbWFzL3dlbGNvbWVTY2hlbWEnO1xuaW1wb3J0IEdyZWV0aW5nc0NhcmQgZnJvbSAnLi4vLi4vY2FyZHMvZ3JlZXRpbmdDYXJkJztcbmltcG9ydCB0eXBlIHsgQ29tbWFuZEtpdCB9IGZyb20gJ2NvbW1hbmRraXQnO1xuaW1wb3J0IHsgRm9udCB9IGZyb20gJ2NhbnZhY29yZCc7XG5cbmV4cG9ydCBkZWZhdWx0IGFzeW5jIGZ1bmN0aW9uIChtZW1iZXI6IEd1aWxkTWVtYmVyLCBjbGllbnQ6IENsaWVudDx0cnVlPiwgaGFuZGxlcjogQ29tbWFuZEtpdCkge1xuICBjb25zdCB3ZWxjb21lRGF0YSA9IGF3YWl0IHdlbGNvbWVTY2hlbWEuZmluZE9uZSh7IGd1aWxkSWQ6IG1lbWJlci5ndWlsZC5pZCB9KTtcbiAgaWYgKCF3ZWxjb21lRGF0YSkgcmV0dXJuO1xuXG4gIGNvbnN0IGNoYW5uZWwgPSBtZW1iZXIuZ3VpbGQuY2hhbm5lbHMuY2FjaGUuZ2V0KHdlbGNvbWVEYXRhLmNoYW5uZWxJZCkgYXMgR3VpbGRUZXh0QmFzZWRDaGFubmVsO1xuICBpZiAoIWNoYW5uZWwpIHJldHVybjtcblxuICBGb250LmxvYWREZWZhdWx0KCk7XG4gIGF3YWl0IEZvbnQuZnJvbUZpbGUoJ3NyYy9mb250cy9SdWJpay1Cb2xkLnR0ZicpO1xuICBjb25zdCBjYXJkID0gbmV3IEdyZWV0aW5nc0NhcmQoKVxuICAgIC5zZXRBdmF0YXIobWVtYmVyLnVzZXIuZGlzcGxheUF2YXRhclVSTCgpKVxuICAgIC5zZXREaXNwbGF5TmFtZShtZW1iZXIuZGlzcGxheU5hbWUpXG4gICAgLnNldFR5cGUoJ3dlbGNvbWUnKVxuICAgIC5zZXRNZXNzYWdlKHdlbGNvbWVEYXRhLm1lc3NhZ2UucmVwbGFjZSgne3VzZXJ9JywgbWVtYmVyLnVzZXIudXNlcm5hbWUpKTtcblxuICBjb25zdCBhdHRhY2htZW50ID0gbmV3IEF0dGFjaG1lbnRCdWlsZGVyKGF3YWl0IGNhcmQuYnVpbGQoeyBmb3JtYXQ6ICdwbmcnIH0pLCB7IG5hbWU6ICd3ZWxjb21lLnBuZycgfSk7XG4gIGNoYW5uZWwuc2VuZCh7IGNvbnRlbnQ6IGAke21lbWJlcn1gLCBmaWxlczogW2F0dGFjaG1lbnRdIH0pO1xufVxuIl0sCiAgIm1hcHBpbmdzIjogIjs7Ozs7Ozs7Ozs7O0FBQUEsU0FBUyx5QkFBb0Y7QUFJN0YsU0FBUyxZQUFZO0FBRXJCLGVBQU8sc0JBQXdCLFFBQXFCLFFBQXNCLFNBQXFCO0FBQzdGLFFBQU0sY0FBYyxNQUFNLHNCQUFjLFFBQVEsRUFBRSxTQUFTLE9BQU8sTUFBTSxHQUFHLENBQUM7QUFDNUUsTUFBSSxDQUFDO0FBQWE7QUFFbEIsUUFBTSxVQUFVLE9BQU8sTUFBTSxTQUFTLE1BQU0sSUFBSSxZQUFZLFNBQVM7QUFDckUsTUFBSSxDQUFDO0FBQVM7QUFFZCxPQUFLLFlBQVk7QUFDakIsUUFBTSxLQUFLLFNBQVMsMEJBQTBCO0FBQzlDLFFBQU0sT0FBTyxJQUFJLHFCQUFjLEVBQzVCLFVBQVUsT0FBTyxLQUFLLGlCQUFpQixDQUFDLEVBQ3hDLGVBQWUsT0FBTyxXQUFXLEVBQ2pDLFFBQVEsU0FBUyxFQUNqQixXQUFXLFlBQVksUUFBUSxRQUFRLFVBQVUsT0FBTyxLQUFLLFFBQVEsQ0FBQztBQUV6RSxRQUFNLGFBQWEsSUFBSSxrQkFBa0IsTUFBTSxLQUFLLE1BQU0sRUFBRSxRQUFRLE1BQU0sQ0FBQyxHQUFHLEVBQUUsTUFBTSxjQUFjLENBQUM7QUFDckcsVUFBUSxLQUFLLEVBQUUsU0FBUyxHQUFHLE1BQU0sSUFBSSxPQUFPLENBQUMsVUFBVSxFQUFFLENBQUM7QUFDNUQ7QUFqQk87IiwKICAibmFtZXMiOiBbXQp9Cg==

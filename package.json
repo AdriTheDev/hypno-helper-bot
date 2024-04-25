@@ -1,0 +1,33 @@
+{
+  "name": "hypno-helper-bot",
+  "version": "1.0.0",
+  "description": "Hypno Helper Discord bot",
+  "main": "src/index.mjs",
+  "scripts": {
+    "dev": "commandkit dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdriTheDev/hypno-helper-bot.git"
+  },
+  "author": "AdriTheDev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AdriTheDev/hypno-helper-bot/issues"
+  },
+  "homepage": "https://github.com/AdriTheDev/hypno-helper-bot#readme",
+  "dependencies": {
+    "canvacord": "^6.0.2",
+    "commandkit": "^0.1.10",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.79",
+    "nodemon": "^3.1.0",
+    "tsx": "^4.7.2",
+    "typescript": "^5.4.5"
+  }
+}

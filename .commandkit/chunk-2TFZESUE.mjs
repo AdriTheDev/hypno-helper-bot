@@ -1,0 +1,18 @@
+// src/schemas/suggestionSchema.ts
+import { Schema, model } from "mongoose";
+var suggestionSchema = new Schema({
+  guildId: {
+    type: String,
+    required: true
+  },
+  channelId: {
+    type: String,
+    required: true
+  }
+});
+var suggestionSchema_default = model("suggestion", suggestionSchema);
+
+export {
+  suggestionSchema_default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vc3JjL3NjaGVtYXMvc3VnZ2VzdGlvblNjaGVtYS50cyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiaW1wb3J0IHsgU2NoZW1hLCBtb2RlbCB9IGZyb20gJ21vbmdvb3NlJztcblxuY29uc3Qgc3VnZ2VzdGlvblNjaGVtYSA9IG5ldyBTY2hlbWEoe1xuICBndWlsZElkOiB7XG4gICAgdHlwZTogU3RyaW5nLFxuICAgIHJlcXVpcmVkOiB0cnVlLFxuICB9LFxuICBjaGFubmVsSWQ6IHtcbiAgICB0eXBlOiBTdHJpbmcsXG4gICAgcmVxdWlyZWQ6IHRydWUsXG4gIH0sXG59KTtcblxuZXhwb3J0IGRlZmF1bHQgbW9kZWwoJ3N1Z2dlc3Rpb24nLCBzdWdnZXN0aW9uU2NoZW1hKTtcbiJdLAogICJtYXBwaW5ncyI6ICI7QUFBQSxTQUFTLFFBQVEsYUFBYTtBQUU5QixJQUFNLG1CQUFtQixJQUFJLE9BQU87QUFBQSxFQUNsQyxTQUFTO0FBQUEsSUFDUCxNQUFNO0FBQUEsSUFDTixVQUFVO0FBQUEsRUFDWjtBQUFBLEVBQ0EsV0FBVztBQUFBLElBQ1QsTUFBTTtBQUFBLElBQ04sVUFBVTtBQUFBLEVBQ1o7QUFDRixDQUFDO0FBRUQsSUFBTywyQkFBUSxNQUFNLGNBQWMsZ0JBQWdCOyIsCiAgIm5hbWVzIjogW10KfQo=
