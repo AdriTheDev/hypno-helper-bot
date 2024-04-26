@@ -8,13 +8,13 @@ export const data: CommandData = {
   options: [
     {
       name: 'code',
-      description: 'the code to run',
+      description: 'The code to run',
       type: ApplicationCommandOptionType.String,
       required: true,
     },
     {
       name: 'hide-reply',
-      description: 'hide reply?',
+      description: 'Hide reply?',
       type: ApplicationCommandOptionType.Boolean,
       required: false,
     },

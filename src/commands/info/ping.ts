@@ -3,7 +3,7 @@ import { EmbedBuilder } from 'discord.js';
 
 export const data: CommandData = {
   name: 'ping',
-  description: 'gets the ping for the bot',
+  description: 'Gets the ping for the bot',
   dm_permission: false,
 };
 

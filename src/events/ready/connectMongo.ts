@@ -2,7 +2,7 @@ import type { Client } from 'discord.js';
 import type { CommandKit } from 'commandkit';
 import { connect } from 'mongoose';
 
-export default function (c: Client<true>, client: Client<true>, handler: CommandKit) {
+export default function (client: Client<true>, handler: CommandKit) {
   const { MONGODB_URI } = process.env;
 
   if (!MONGODB_URI) {

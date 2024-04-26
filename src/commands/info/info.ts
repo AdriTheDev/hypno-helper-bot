@@ -5,22 +5,22 @@ import configJson from '../../../package.json';
 
 export const data: CommandData = {
   name: 'info',
-  description: 'gets info about various things',
+  description: 'Gets info about various things',
   dm_permission: false,
   options: [
     {
       name: 'bot',
-      description: "get's info about the bot",
+      description: 'Gets info about the bot',
       type: ApplicationCommandOptionType.Subcommand,
     },
     {
       name: 'user',
-      description: "get's info about a user",
+      description: 'Gets info about a user',
       type: ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: 'user',
-          description: 'the user to get info about',
+          description: 'The user to get info about',
           type: ApplicationCommandOptionType.User,
           required: false,
         },
@@ -28,7 +28,7 @@ export const data: CommandData = {
     },
     {
       name: 'server',
-      description: "get's info about the server",
+      description: 'Gets info about the server',
       type: ApplicationCommandOptionType.Subcommand,
     },
   ],

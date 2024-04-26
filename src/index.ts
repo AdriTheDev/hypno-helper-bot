@@ -1,4 +1,4 @@
-import { Client, EmbedBuilder, GatewayIntentBits } from 'discord.js';
+import { Client, EmbedBuilder, GatewayIntentBits, GuildTextBasedChannel } from 'discord.js';
 import { CommandKit } from 'commandkit';
 import { config } from 'dotenv';
 import path from 'path';
@@ -30,3 +30,31 @@ new CommandKit({
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
+process.on('unhandledRejection', async (err) => {
+  const errorChannel = (await client.channels.fetch(process.env.ERROR_CHANNEL as string)) as GuildTextBasedChannel;
+  if (!errorChannel) return;
+
+  const errorEmbed = new EmbedBuilder()
+    .setTitle('Unhandled Rejection')
+    .setDescription(`\`\`\`${err}\`\`\``)
+    .setColor(0xff6961)
+    .setFooter({ text: 'Anti-crash system' })
+    .setTimestamp();
+
+  errorChannel.send({ embeds: [errorEmbed] });
+});
+
+process.on('uncaughtException', async (err) => {
+  const errorChannel = (await client.channels.fetch(process.env.ERROR_CHANNEL as string)) as GuildTextBasedChannel;
+  if (!errorChannel) return;
+
+  const errorEmbed = new EmbedBuilder()
+    .setTitle('Uncaught Exception')
+    .setDescription(`\`\`\`${err}\`\`\``)
+    .setColor(0xff6961)
+    .setFooter({ text: 'Anti-crash system' })
+    .setTimestamp();
+
+  errorChannel.send({ embeds: [errorEmbed] });
+});

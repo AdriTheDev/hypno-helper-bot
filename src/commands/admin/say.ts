@@ -3,25 +3,25 @@ import { ApplicationCommandOptionType, ChannelType, EmbedBuilder, GuildTextBased
 
 export const data: CommandData = {
   name: 'say',
-  description: 'says something as the bot',
+  description: 'Sends a message through the bot',
   dm_permission: false,
   options: [
     {
       name: 'message',
-      description: 'the message to say',
+      description: 'The message to say',
       type: ApplicationCommandOptionType.String,
       required: true,
     },
     {
       name: 'channel',
-      description: 'the channel to say it in (cannot be used with reply-id)',
+      description: 'The channel to say it in (cannot be used with reply-id)',
       type: ApplicationCommandOptionType.Channel,
       channel_types: [ChannelType.GuildText],
       required: false,
     },
     {
       name: 'reply-id',
-      description: 'message to reply to (if any)',
+      description: 'Message to reply to (if any)',
       type: ApplicationCommandOptionType.String,
       required: false,
     },

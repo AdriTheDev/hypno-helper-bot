@@ -3,12 +3,12 @@ import { ApplicationCommandOptionType, EmbedBuilder, GuildMember } from 'discord
 
 export const data: CommandData = {
   name: 'emit',
-  description: 'emit an event on the bot',
+  description: 'Emit an event on the bot',
   dm_permission: false,
   options: [
     {
       name: 'event',
-      description: 'the event to emit',
+      description: 'The event to emit',
       type: ApplicationCommandOptionType.String,
       required: true,
       choices: [

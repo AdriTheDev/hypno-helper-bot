@@ -3,7 +3,7 @@ import { ApplicationCommandOptionType, EmbedBuilder, GuildMember } from 'discord
 
 export const data: CommandData = {
   name: 'ban',
-  description: 'bans a member from the server!',
+  description: 'Bans a member from the server!',
   dm_permission: false,
   options: [
     {
@@ -47,7 +47,10 @@ export async function run({ interaction, client, handler }: SlashCommandProps) {
     .setColor(0xff6961)
     .setTimestamp();
 
-  const bannedEmbed = new EmbedBuilder().setDescription(`\`✅\` Successfully banned ${target.username}! || ${reason}`).setColor(0x77dd77).setTimestamp();
+  const bannedEmbed = new EmbedBuilder()
+    .setDescription(`\`✅\` Successfully banned <@!${target.id}>!\n**Reason:** ${reason}`)
+    .setColor(0x77dd77)
+    .setTimestamp();
 
   await member.send({ embeds: [userEmbed] }).catch(() => {
     bannedEmbed.setFooter({ text: 'Failed to DM user!' });

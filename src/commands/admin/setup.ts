@@ -5,24 +5,24 @@ import welcomeSchema from '../../schemas/welcomeSchema';
 
 export const data: CommandData = {
   name: 'setup',
-  description: 'setup different systems in the server',
+  description: 'Setup different systems in the server',
   dm_permission: false,
   options: [
     {
       name: 'welcome',
-      description: 'setup the welcome system',
+      description: 'Setup the welcome system',
       type: ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: 'channel',
-          description: 'set the welcome channel',
+          description: 'Set the welcome channel',
           type: ApplicationCommandOptionType.Channel,
           channel_types: [ChannelType.GuildText],
           required: true,
         },
         {
           name: 'message',
-          description: 'set the welcome message (use {user} for the user mention and {n} for a new line)',
+          description: 'Set the welcome message (use {user} for the user mention and {n} for a new line)',
           type: ApplicationCommandOptionType.String,
           required: true,
         },
@@ -30,12 +30,12 @@ export const data: CommandData = {
     },
     {
       name: 'suggestions',
-      description: 'set the suggestions channel',
+      description: 'Set the suggestions channel',
       type: ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: 'channel',
-          description: 'set the suggestions channel',
+          description: 'Set the suggestions channel',
           type: ApplicationCommandOptionType.Channel,
           channel_types: [ChannelType.GuildText],
           required: true,

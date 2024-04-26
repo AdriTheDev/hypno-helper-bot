@@ -3,7 +3,7 @@ import { ApplicationCommandOptionType, EmbedBuilder, GuildMember } from 'discord
 
 export const data: CommandData = {
   name: 'kick',
-  description: 'kicks a member from the server!',
+  description: 'Kicks a member from the server!',
   dm_permission: false,
   options: [
     {
@@ -22,7 +22,7 @@ export const data: CommandData = {
 };
 
 export async function run({ interaction, client, handler }: SlashCommandProps) {
-  let msg = await interaction.deferReply({ fetchReply: true });
+  await interaction.deferReply({ fetchReply: true });
 
   const target = interaction.options.getUser('member') || interaction.user;
   const reason = interaction.options.getString('reason') || 'No reason provided';
@@ -47,15 +47,18 @@ export async function run({ interaction, client, handler }: SlashCommandProps) {
     .setColor(0xff6961)
     .setTimestamp();
 
-  const bannedEmbed = new EmbedBuilder().setDescription(`\`✅\` Successfully kicked ${target.username}! || ${reason}`).setColor(0x77dd77).setTimestamp();
+  const bannedEmbed = new EmbedBuilder()
+    .setDescription(`\`✅\` Successfully kicked <@!${target.id}>!\n**Reason:** ${reason}`)
+    .setColor(0x77dd77)
+    .setTimestamp();
 
   await member.send({ embeds: [userEmbed] }).catch(() => {
     bannedEmbed.setFooter({ text: 'Failed to DM user!' });
   });
 
-  // await member.kick(reason).catch(() => {
-  // 	return interaction.editReply("An error occured while kicking that user!");
-  // });
+  await member.kick(reason).catch(() => {
+    return interaction.editReply('An error occured while kicking that user!');
+  });
 
   interaction.editReply({ embeds: [bannedEmbed] });
 }
