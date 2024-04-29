@@ -62,3 +62,7 @@ export async function run({ interaction, client, handler }: SlashCommandProps) {
 
   interaction.editReply({ embeds: [bannedEmbed] });
 }
+
+export const options: CommandOptions = {
+  userPermissions: 'BanMembers',
+};

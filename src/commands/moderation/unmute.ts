@@ -42,6 +42,6 @@ export async function run({ interaction, client, handler }: SlashCommandProps) {
   interaction.editReply({ embeds: [mutedEmbed] });
 }
 
-// export const options: CommandOptions = {
-// deleted: true,
-// };
+export const options: CommandOptions = {
+  userPermissions: 'ModerateMembers',
+};
